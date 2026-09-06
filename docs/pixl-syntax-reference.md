@@ -1,14 +1,15 @@
 # Pixl Reference
 
 Everything in the Pixl language, on one page. Pixl makes tiny pixel arcade games on a
-160×120 canvas. Look things up here while you build — and if you want guided practice,
+160×120 screen. Look things up here while you build — and if you want guided practice,
 the Learn button has lessons that check your code.
 
 ---
 
 ## 1. Program shape
 
-Every program is one `game`, then three required lifecycle blocks, plus any number of functions.
+Every program is one `game`, then three blocks that every game must have, plus any helpers
+(functions) you write.
 
 ```pixl
 game MyGame
@@ -18,23 +19,23 @@ start
 end
 
 update
-  // runs once per frame — game logic, input, movement
+  // runs once per frame — thinking: keys, movement, score
 end
 
 draw
-  // runs once per frame — everything you see
+  // runs once per frame — painting: everything you see
 end
 ```
 
-- `start`, `update`, and `draw` are all required and each closed by `end`.
-- **Functions** are top-level siblings of the lifecycle blocks, in any order (see §10).
-- The canvas is **160 wide × 120 tall**. `width`/`height` give you those.
+- `start`, `update`, and `draw` are all required, and each one is closed by `end`.
+- **Functions** (your own helpers) sit next to the three blocks, in any order (see §10).
+- The screen is **160 wide × 120 tall**. `width` and `height` give you those numbers.
 
-### Two syntaxes, one language
+### Two ways to write it, one language
 
-Pixl has two interchangeable styles that parse to the same thing. The default is **indent style**
-(newlines + `end`). There is also a **brace style** (`{ … }` + optional `;`), which writes the
-lifecycle blocks like functions:
+Pixl has two styles that mean exactly the same thing. The usual one is **indent style**
+(one thing per line, blocks closed by `end`). There is also a **brace style** (`{ … }` and
+optional `;`), which writes the three blocks like functions:
 
 ```pixl
 game MyGame {
@@ -48,16 +49,17 @@ game MyGame {
 }
 ```
 
-The Studio **Convert** button flips a file between the two styles losslessly (comments preserved).
-In indent style a command reads its arguments to the end of the line; indentation is cosmetic.
+The Studio **Convert** button flips a file between the two styles without losing anything
+(comments included). In indent style a command's values run to the end of the line, and how
+far you indent is up to you.
 
 ### Comments
 
-`//` line comments only. They survive Convert.
+A comment starts with `//` and runs to the end of the line. Pixl ignores it — it is a note for you.
 
 ```pixl
 // a whole-line comment
-x = 1   // a trailing comment
+x = 1   // a note at the end of a line
 ```
 
 ---
@@ -66,52 +68,52 @@ x = 1   // a trailing comment
 
 | Kind | Example | Notes |
 |------|---------|-------|
-| Number | `10`, `0.5`, `-3` | `double` internally, truncated to int for screen coordinates. Divide-by-zero yields `0`. |
+| Number | `10`, `0.5`, `-3` | Whole numbers or decimals. Screen positions use the whole-number part. Dividing by zero gives `0`. |
 | Text | `"Score: "` | Joins with `+` when either side is text. |
-| Sprite | `sprite "..."` | Owns its own `x`/`y`; has read-only `width`/`height`. See §7. |
+| Sprite | `sprite "..."` | A picture made of letters. Owns its own `x` and `y`. See §7. |
 | Tune | `tune "C E G C5"` | A sound made of letters. See §8. |
-| List | `[a, b, c]`, `list of 8 ...` | Ordered, fixed-size in v1. See §9. |
-| Entity | `entity with ... end` | Learner-defined bundle of named fields. See §9. |
+| List | `[a, b, c]`, `list of 8 ...` | A row of values. Its size is fixed once made. See §9. |
+| Entity | `entity with ... end` | A bundle of named parts that you define. See §9. |
 
-**Truthiness** (used by `if`, `when`, `and`/`or`/`not`): a number is true when ≠ 0, text when
-non-empty, a sprite when non-empty, a list when non-empty, an entity when it has any field.
+**What counts as true** (for `if`, `when`, `and`, `or`, `not`): a number is true when it is not `0`,
+text when it is not empty, a sprite or list when it is not empty, an entity when it has any part.
 
-**Case-insensitive identifiers.** `Shade` and `shade` are the same variable; `LEFT` works. Keywords
-and command names stay lowercase.
+**Capital letters don't matter in names.** `Shade` and `shade` are the same variable, and `LEFT`
+works. Keywords and command names are always lowercase.
 
 ---
 
 ## 3. Variables
 
-Create and update a variable with `=`. There is no declaration keyword.
+Make a variable, or change it, with `=`. You don't have to announce it first.
 
 ```pixl
 score = 0
 score = score + 1
 ```
 
-Variables live in one shared space across `start`/`update`/`draw` (set it anywhere, read it
-anywhere). Inside a function, writes stay local — see §10.
+Variables are shared across `start`, `update`, and `draw`: set one anywhere, read it anywhere.
+Inside a function, changes stay inside the function — see §10.
 
 ---
 
 ## 4. Commands (drawing, sound)
 
-Commands take arguments to end-of-line (indent style). The valid commands are
-`clear`, `pixel`, `rect`, `draw`, `text`, `sound`.
+A command's values run to the end of the line. The commands are
+`clear`, `pixel`, `rect`, `draw`, `text`, `sound`, and `volume`.
 
 | Command | Form | Meaning |
 |---------|------|---------|
 | `clear` | `clear <colour>` | Fill the whole screen. |
-| `pixel` | `pixel x, y, <colour>` | One pixel. |
-| `rect` | `rect x, y, w, h, <colour>` | Filled rectangle. |
-| `draw` | `draw <sprite>` | Draw a sprite at its own stored position. |
-| `draw … at` | `draw <sprite> at x, y` | Draw once at x, y **without** changing the sprite's stored position. |
-| `text` | `text <string>, x, y` or `text <string>, x, y, <colour>` | Colour defaults to white. |
+| `pixel` | `pixel x, y, <colour>` | One dot. |
+| `rect` | `rect x, y, w, h, <colour>` | A filled box. |
+| `draw` | `draw <sprite>` | Draw a sprite where it lives (its own `x`, `y`). |
+| `draw … at` | `draw <sprite> at x, y` | Draw it once at x, y **without** moving where it lives. |
+| `text` | `text <string>, x, y` or `text <string>, x, y, <colour>` | Words. Colour is optional (white if left out). |
 | `sound` | `sound <name>` | Play a sound. |
-| `volume` | `volume <0..10>` | Master loudness for all tunes (default 10). See §8. |
+| `volume` | `volume <0..10>` | Master loudness for all tunes (starts at 10). See §8. |
 
-Example:
+Positions are x (across, 0 is the left edge) then y (down, 0 is the top). Example:
 
 ```pixl
 draw
@@ -124,29 +126,62 @@ end
 
 ---
 
-## 5. Fixed vocabulary
+## 5. Colours, sounds, and built-in values
 
-These are the **only** valid names in colour/sound slots (the checker validates them):
+### The seven colours
 
-- **Colours:** `black`, `white`, `red`, `green`, `blue`, `yellow`, `grey`
-- **Sounds:** `beep`
-- **Ready-made tunes** (playable anywhere a tune is): `pew`, `zap`, `boom`, `pickup`, `jump`, `win`, `lose`
+Pixl has seven colours. Use the **name** in a command like `clear`, `pixel`, `rect`, or `text`.
+Use the **letter** inside a `sprite` (one letter per dot).
 
-**Built-in values** (read-only, always available):
+| Colour | Name in a command | Letter in a sprite |
+|--------|-------------------|--------------------|
+| White | `white` | `W` |
+| Red | `red` | `R` |
+| Green | `green` | `G` |
+| Blue | `blue` | `B` |
+| Yellow | `yellow` | `Y` |
+| Black | `black` | `K` |
+| Grey | `grey` | `S` |
+
+Most letters are just the first letter of the colour. The two odd ones: `B` was taken by blue,
+so black is `K` (the last letter of "black"); `G` was taken by green, so grey is `S` (for silver).
+In a sprite, `.` is see-through (no dot drawn).
+
+```pixl
+clear black             // the name, in a command
+
+// the letters, in a sprite: K is black, R is red
+player = sprite "
+  .KK.
+  KRRK
+  .KK.
+"
+```
+
+### Sounds
+
+- **Sound:** `sound beep` — a short ding.
+- **Ready-made tunes** (use them anywhere a tune goes): `pew`, `zap`, `boom`, `pickup`, `jump`, `win`, `lose`. See §8.
+
+Only these colour and sound names work. If you mistype one, Pixl tells you before the game runs.
+
+### Built-in values
+
+These are always there to read (you can't change them):
 
 | Built-in | Value |
 |----------|-------|
-| `left` `right` `up` `down` `space` | `1` while the key is held, else `0`. |
-| `width` `height` | Canvas size (`160` / `120`). Aliases for `window.width` / `window.height`. |
-| `time` | Seconds of host time elapsed. |
-| `delta` | Seconds since the last frame (the fixed timestep). |
-| `random` | A fresh number in `[0, 1)` **each read**. `random * width` → random x. |
+| `left` `right` `up` `down` `space` | `1` while that key is held down, else `0`. |
+| `width` `height` | The screen size (`160` / `120`). Same as `window.width` / `window.height`. |
+| `time` | Seconds since the game started. |
+| `delta` | Seconds since the last frame. |
+| `random` | A new number from 0 up to (but not including) 1, **every time you read it**. `random * width` gives a random x. |
 
-> Because `left`/`right`/… are just `1`/`0`, `if left` works, and so does `if left and space`.
+> Because `left`, `right`, … are just `1` or `0`, `if left` works, and so does `if left and space`.
 
 ---
 
-## 6. Control flow
+## 6. Deciding and timing
 
 ### if / else
 
@@ -158,11 +193,12 @@ else
 end
 ```
 
-`else` is optional. The condition is truthiness (§2).
+`else` is optional. The condition uses the "what counts as true" rule from §2.
 
-### when — edge trigger
+### when — once per press
 
-Runs its body **once each time** the condition rises from false to true. A held key fires once.
+Runs its body **once each time** the condition goes from false to true. Holding a key fires it
+once, not every frame.
 
 ```pixl
 when space
@@ -170,9 +206,9 @@ when space
 end
 ```
 
-### every — timer
+### every — a timer
 
-Runs its body once per `n` seconds of host time. The unit word (`seconds`/`second`) is optional.
+Runs its body once every `n` seconds. The word `seconds` (or `second`) is optional.
 
 ```pixl
 every 1 seconds
@@ -180,16 +216,16 @@ every 1 seconds
 end
 ```
 
-`when` and `every` are single-body blocks (no `else`) and work in both syntaxes.
+`when` and `every` have one body each (no `else`) and work in both styles.
 
 ---
 
-## 7. Sprites and members
+## 7. Sprites and dot members
 
-A sprite literal is quoted, possibly multi-line text. `.` is transparent; letters are palette
-colours:
+A sprite is a picture made of letters, written between quotes, usually over several lines.
+`.` is see-through, and each letter is a colour (the full table is in §5):
 
-| Symbol | Colour |
+| Letter | Colour |
 |--------|--------|
 | `W` | white |
 | `R` | red |
@@ -199,8 +235,8 @@ colours:
 | `K` | black |
 | `S` | grey |
 
-> In Studio you can **paint** a sprite on a grid (🎨 Sprite) instead of hand-typing it — it writes
-> the `sprite "..."` for you, and re-opens the one at your caret to edit.
+> In Studio you can **paint** a sprite on a grid (🎨 Sprite) instead of typing the letters — it
+> writes the `sprite "..."` for you, and re-opens the one at your cursor so you can edit it.
 
 ```pixl
 player = sprite "
@@ -212,22 +248,22 @@ player.x = 60
 player.y = 60
 ```
 
-**Curated `.` members** (access with a dot; chaining like `rock.body.x` works):
+**Dot members** (write a dot after a name to reach inside it; chains like `rock.body.x` work):
 
-| Target | Members |
-|--------|---------|
-| Sprite | `x`, `y` (read/write), `width`, `height` (read-only) |
-| `window` | `width`, `height` (read-only, `160`/`120`) |
-| List | `count` (read-only length) |
-| Entity | its own declared field names |
+| Thing | What you can reach |
+|-------|--------------------|
+| Sprite | `x`, `y` (read and change), `width`, `height` (read only) |
+| `window` | `width`, `height` (read only, `160` / `120`) |
+| List | `count` (read only — how many items) |
+| Entity | the parts you gave it |
 
-Assignment writes back along the whole path, so `rock.body.x = rock.body.x + 1` sticks.
+Changing a member sticks, all the way down a chain: `rock.body.x = rock.body.x + 1` moves the rock.
 
 ---
 
 ## 8. Tunes and sound (music + effects)
 
-A tune is a **sound made of letters** — the audio parallel of a sprite:
+A tune is a **sound made of letters** — the sound version of a sprite:
 
 ```pixl
 song = tune "
@@ -238,41 +274,41 @@ song = tune "
 
 | Symbol | Meaning |
 |--------|---------|
-| `C D E F G A B` | The seven notes. Case-insensitive. |
-| `#` suffix (`C#`, `G#3`) | Sharp — one semitone up. |
-| digit suffix (`C5`, `C#5`) | Octave, 1–8. Default is 4 (`C` = `C4`). |
-| `.` | A rest (one beat of silence) — the sprite's "transparent", for sound. |
-| `-` | Hold: the previous note lasts one beat longer. `C - - .` is a long C then a rest. |
+| `C D E F G A B` | The seven notes. Capitals or lowercase, either works. |
+| `#` after a note (`C#`, `G#3`) | Sharp — one step higher. |
+| digit after a note (`C5`, `C#5`) | Octave, 1 to 8. Leave it out for 4 (`C` is `C4`). Higher numbers are higher notes. |
+| `.` | A rest (one beat of silence) — the tune's version of see-through. |
+| `-` | Hold: the note before it lasts one beat longer. `C - - .` is a long C then a rest. |
 
-Beats are fixed at 8 per second. Whitespace and newlines don't matter, so tunes format
-like sprites. A typo'd note is caught at compile time (*"I do not know the note H."*).
+There are 8 beats per second. Spaces and new lines don't matter, so you can lay a tune out
+like a sprite. A mistyped note is caught before the game runs (*"I do not know the note H."*).
 
-> In Studio you can **compose on a piano roll** (🎵 Tune) instead of hand-typing — click
-> notes and hear them, drag to hold, ▶ to play back — and it writes the `tune "..."` for
-> you, or re-opens the one at your caret to edit.
+> In Studio you can **compose on a piano roll** (🎵 Tune) instead of typing — click notes
+> and hear them, drag to hold, ▶ to play back — and it writes the `tune "..."` for you, or
+> re-opens the one at your cursor so you can edit it.
 
 ### Playing — two channels, like a retro console
 
 ```pixl
 play song forever            // the MUSIC channel: loops until replaced or hushed
 play song 3 times            // music that stops itself after 3 passes
-play pew                     // the EFFECT channel: one-shot, plays OVER the music
+play pew                     // the EFFECT channel: plays once, OVER the music
 play boom at volume 10       // this play's own loudness (0–10)
-volume 5                     // the master loudness (0–10, default 10)
+volume 5                     // the master loudness (0–10, starts at 10)
 hush                         // silence both channels
 ```
 
-- Anything long-running (`forever` or `<n> times`) takes the **music channel**; a plain
-  `play` is a one-shot **effect** on top of it. One of each at a time; a new play
-  replaces its channel. (`times` is an optional unit word, like `every`'s `seconds`.)
-- Use `when` for key-press sounds — under `if`, the tune restarts every held frame.
-- Timed music is a pattern, not syntax: `play song forever` + `every 30 seconds hush end`.
+- Anything that keeps going (`forever` or `<n> times`) uses the **music channel**. A plain
+  `play` is a one-off **effect** on top of it. One of each at a time — a new play replaces the
+  old one on its channel. (The word `times` is optional, like `every`'s `seconds`.)
+- Use `when` for key-press sounds. Under `if`, the tune restarts every frame the key is held.
+- Music for a while is a pattern, not a command: `play song forever` plus `every 30 seconds hush end`.
 
 ### Ready-made tunes
 
-`pew` `zap` `boom` `pickup` `jump` `win` `lose` work out of the box — each is an
-ordinary named pattern (a worked example: use it, then copy the idea and write your
-own). Your own variable with the same name wins.
+`pew` `zap` `boom` `pickup` `jump` `win` `lose` work straight away. Each is an ordinary tune
+with a name — use it, then copy the idea and write your own. If you make a variable with the
+same name, yours wins.
 
 ---
 
@@ -288,41 +324,42 @@ rocks = list of 8 sprite "
 "
 ```
 
-`list of <count> <value>` makes `count` copies of the once-evaluated value (count clamped to
-`[0, 10000]`). `<list>.count` is the length.
+`list of <count> <value>` makes `count` copies of the value (up to 10000). `<list>.count` tells
+you how many items there are.
 
-**Lists are fixed-size** — no `add`/`remove` (use the pool pattern instead).
+**A list's size is fixed** — there is no `add` or `remove`. Make as many as you will ever need up
+front, and hide the ones you aren't using (for example, move them off the screen).
 
-### Indexing — `list[i]`
+### Picking one item — `list[i]`
 
-Pick one item out of a list by number. **Numbering starts at 0**, so `frames[0]` is the first item
-and the last is `frames[frames.count - 1]`.
+Pick one item out of a list by number. **Counting starts at 0**, so `frames[0]` is the first item
+and the last one is `frames[frames.count - 1]`.
 
 ```pixl
 first = frames[0]        // read an item
-frames[1] = other        // write an item (change sticks)
-rocks[i].x = rocks[i].x + 1   // read/write a member of an item
+frames[1] = other        // change an item (the change sticks)
+rocks[i].x = rocks[i].x + 1   // read or change a member of an item
 
 draw frames[frame] at x, y    // the classic use: pick the current animation frame
 ```
 
-Picking an item number the list doesn't have (or using `[ ]` on something that isn't a list) stops
-the game with a friendly message, e.g. *"There is no item number 9. This list has 4 (0 to 3)."*
+Asking for an item number the list doesn't have (or using `[ ]` on something that isn't a list)
+stops the game with a friendly message, e.g. *"There is no item number 9. This list has 4 (0 to 3)."*
 
 ### for each
 
 ```pixl
 for each rock in rocks
-  rock.y = rock.y + 1     // change sticks — the loop writes each item back
+  rock.y = rock.y + 1     // the change sticks — the loop puts each item back
 end
 ```
 
-The loop **writes each item back** into the list after every iteration, which is what makes a
-list of sprites usable in the game loop.
+The loop **puts each item back** into the list after each turn, so changing a sprite inside the
+loop really moves it. This is what makes a list of sprites work in the game loop.
 
 ### Entities
 
-An entity bundles named fields you define. Declare every field up front.
+An entity bundles named parts that you define. Name every part when you make it.
 
 ```pixl
 ball = entity with
@@ -335,19 +372,19 @@ ball = entity with
 end
 ```
 
-A field can hold any value — including a position-owning sprite (`ball.body.x`) or another entity
-(nesting is allowed). The checker knows an entity's declared fields, so `ball.vbx` (a typo) is
-caught: *"ball has body, vx, and vy, not vbx."*
+A part can hold any value — including a sprite with its own position (`ball.body.x`) or another
+entity. Pixl knows an entity's parts, so a typo like `ball.vbx` is caught: *"ball has body, vx,
+and vy, not vbx."*
 
-Combine the three — a list of entities each wrapping a sprite is the standard "many moving things"
-pattern (see `examples/manyrocks.pixl`, `examples/asteroids.pixl`, `examples/functions.pixl`).
+Put the three together — a list of entities, each wrapping a sprite — and you have the standard
+way to make "many moving things" (see `manyrocks.pixl`, `asteroids.pixl`, `functions.pixl`).
 
 ---
 
 ## 10. Functions
 
-Write your own helpers. `function name(p1, p2) … end` (brace form too), a top-level sibling of the
-lifecycle blocks.
+Write your own helpers. `function name(p1, p2) … end` (brace style too) sits next to the three
+main blocks.
 
 ```pixl
 function move(r)
@@ -359,11 +396,12 @@ function move(r)
 end
 ```
 
-- **Return a value** with `return <expr>`. No `return` → a procedure.
-- **Call as an expression** — `x = clamp(x, 0, width)` — or **as a statement** — `drawHud()`.
-  Parentheses are what distinguish a call from a command.
-- **Scope:** reads fall through to globals, but writes stay local. A function reads game state and
-  changes it only by returning a value you store. This composes with `for each` write-back:
+- **Give a value back** with `return <value>`. A function without `return` just does something.
+- **Call it as a value** — `x = clamp(x, 0, width)` — or **on its own line** — `drawHud()`.
+  The brackets `( )` are what tell Pixl it is a call and not a command.
+- **Inside a function**, you can read your game's variables, but changing one only changes the
+  function's own copy. To change the game, `return` the new value and store it. That works
+  nicely with `for each`:
 
   ```pixl
   for each ball in balls
@@ -371,65 +409,67 @@ end
   end
   ```
 
-- **No recursion** — a function may not reach itself, directly or indirectly (the checker enforces this).
+- **A function can't call itself**, directly or through another function. Pixl checks this.
 
 ---
 
-## 11. Expressions and operators
+## 11. Maths, comparing, and combining
 
-Precedence, **loosest to tightest**:
+Pixl works out the tightest operators first. From loosest (done last) to tightest (done first):
 
 1. `or`
 2. `and`
-3. `not` (prefix)
-4. comparisons: `>` `<` `>=` `<=` `==` `!=` `touches`
-5. additive: `+` `-`
-6. multiplicative: `*` `/`
-7. unary minus: `-x` (prefix)
-8. primary (literals, names, `(...)`, calls, member access)
+3. `not` (goes in front)
+4. comparing: `>` `<` `>=` `<=` `==` `!=` `touches`
+5. adding and taking away: `+` `-`
+6. multiplying and dividing: `*` `/`
+7. minus in front: `-x`
+8. single things (numbers, text, names, `(...)`, calls, dot members)
 
 Notes:
 
-- **Comparisons** yield `1`/`0` and are numeric only. `==`/`!=` is exact double equality — the
-  checker warns against comparing the continuous `time`/`delta` with `==`/`!=` (use `>=`).
-- **`and` / `or`** read each side's truthiness, short-circuit, and yield `1`/`0`.
-  **`not x`** is prefix negation (truthy → `0`, falsy → `1`); `not not x` is allowed.
-- **`a touches b`** is collision: `1` when two sprites' bounding boxes overlap, else `0`.
-  Non-sprites never touch. It sits at comparison level, so `not a touches b` means `not (a touches b)`.
-- **Unary minus** binds tighter than `* /`, so `-3 * 2` is `(-3) * 2`; a `-` between two values is
-  subtraction.
-- **`+`** joins text when either side is text (`"Score: " + score` → `"Score: 5"`); numbers render
-  plainly, sprites contribute nothing.
-- `=` is assignment, `==` is equality.
-- **Number literals** may be decimals (`0.5`). `player.x` keeps the dot as member access because a
-  digit doesn't follow it.
+- **Comparing** gives `1` (true) or `0` (false), and only works on numbers. `==` needs an exact
+  match, so don't compare `time` or `delta` with `==` or `!=` — they are almost never exactly a
+  value. Use `>=` instead (Pixl warns you about this).
+- **`and` / `or`** use the "what counts as true" rule from §2, stop as soon as they know the
+  answer, and give `1` or `0`. **`not x`** flips it (true → `0`, false → `1`). `not not x` is allowed.
+- **`a touches b`** is collision: `1` when the boxes around the two sprites overlap, else `0`.
+  Things that aren't sprites never touch. It sits at the comparing level, so `not a touches b`
+  means `not (a touches b)`.
+- **Minus in front** is done before `*` and `/`, so `-3 * 2` is `(-3) * 2`. A `-` between two
+  values is taking away.
+- **`+`** joins text when either side is text (`"Score: " + score` → `"Score: 5"`). Numbers show
+  plainly; sprites add nothing.
+- `=` sets a variable; `==` asks "are these equal?".
+- **Numbers** can have a decimal point (`0.5`). `player.x` still means "the x of player", because
+  no digit follows the dot.
 
 ---
 
-## 12. Export & convert
+## 12. Export and convert
 
-- **Convert** (Studio) flips a file between indent and brace style, losslessly.
-- **Export C#** emits a runnable C# translation. Functions, sprite members, arithmetic/boolean/
-  `touches`, `if`/`when`/`every` all export natively. Entities, chained member assignment,
-  `for each` over lists, and sound (`play`/`hush`/`volume`) currently export as `// TODO`
-  stubs (they don't fit the flattening / have no clean Unity target here).
+- **Convert** (Studio) flips a file between indent style and brace style, without losing anything.
+- **Export C#** writes a C# version of your game that you can run. Functions, sprite members,
+  maths, `and`/`or`/`not`, `touches`, `if`, `when`, and `every` all come out as real C#. Entities,
+  chained member changes, `for each` over lists, and sound (`play`, `hush`, `volume`) come out as
+  `// TODO` notes for you to fill in.
 
 ---
 
 ## 13. Learn by example
 
-The `examples/` folder is the best companion to this reference:
+The examples in My games (or the `examples` folder) are the best companion to this reference:
 
 | File | Shows |
 |------|-------|
 | `hello.pixl` | The smallest program. |
-| `mover.pixl`, `keys.pixl` | Input, `if` vs `when`. |
+| `mover.pixl`, `keys.pixl` | Keys, and `if` vs `when`. |
 | `spacedot.pixl` | Movement, `when`, `every`, sprite members. |
-| `bouncer.pixl`, `dodge.pixl`, `catch.pixl` | Movement + collision (`touches`). |
+| `bouncer.pixl`, `dodge.pixl`, `catch.pixl` | Movement and collision (`touches`). |
 | `clock.pixl` | `every` timers. |
 | `platformer.pixl` | A fuller game loop. |
-| `manyrocks.pixl` | Lists + `for each` (pool pattern). |
-| `walkcycle.pixl` | Animation from code: a list of frames + indexing (`frames[frame]`). |
-| `functions.pixl` | Functions returning values. |
+| `manyrocks.pixl` | Lists and `for each` (make them all up front, hide the spare ones). |
+| `walkcycle.pixl` | Animation from code: a list of frames and `frames[frame]`. |
+| `functions.pixl` | Functions that give values back. |
 | `soundcheck.pixl` | Tunes: looping music, effects over it, volume, hush. |
-| `asteroids.pixl`, `swarm.pixl` | Lists of entities, the full toolkit together. |
+| `asteroids.pixl`, `swarm.pixl` | Lists of entities — the whole toolkit together. |
