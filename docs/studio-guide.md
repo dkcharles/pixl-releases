@@ -53,6 +53,13 @@ run, poke at the code, run again — is the whole idea.
 
 All remembered between sessions.
 
+## Pixl in VS Code
+
+Want to look at an old game while you write a new one, or try a grown-up editor? Your games are
+ordinary files in `Documents\PixlStudio`, and VS Code can open them with the Pixl extension:
+colours, error messages as you type, and a Run button. See [Pixl in VS Code](vscode.md) for the
+install steps — in the Studio, 🧰 More ▸ **Pixl in VS Code…** opens that page.
+
 ## Handing a sprite or tune to a teammate
 
 Working on one game as a group? Whoever paints a sprite, draws an animation or writes a tune can hand it over as a link.
