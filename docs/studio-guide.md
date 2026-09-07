@@ -2,7 +2,7 @@
 
 Pixl Studio is where you write and run Pixl games. This is a quick tour of everything in the
 window. For the language itself, see the [Pixl language reference](pixl-syntax-reference.md) —
-the same reference is built into the app under **Learn → Reference**.
+the same reference is built into the app behind the **📖 Reference** button (F1).
 
 ## First run
 
