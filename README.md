@@ -17,6 +17,8 @@ builds are unsigned while Pixl is in testing.
 - **[Pixl Studio guide](docs/studio-guide.md)** — a tour of the app: the editor, running games,
   the sprite/animation painter, the tune editor, lessons, and sharing your games.
 - **[Pixl language reference](docs/pixl-syntax-reference.md)** — the whole language on one page.
+- **[Pixl in VS Code](docs/vscode.md)** — install the extension and write Pixl in VS Code, with
+  several files open at once.
 
 Both are also built into the app — the **Learn** button has step-by-step lessons that check your
 code as you go, plus the same reference, browsable and printable.
