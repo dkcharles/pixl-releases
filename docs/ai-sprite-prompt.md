@@ -17,6 +17,8 @@ rules exactly.
   `W` white, `R` red, `G` green, `B` blue, `Y` yellow, `K` black, `S` grey.
   There are no other colours and no other letters.
 - **Every row must be the same length.** Use `.` to pad rows that would be shorter.
+- **Do not forget the dots.** Never use spaces or leave a row short: every empty pixel is a `.`,
+  including the ones at the start and end of a row.
 - Keep the sprite between **6 by 6 and 16 by 16** pixels. Small and bold reads best.
 - Indent each row by two spaces, and use two spaces in front of `name = sprite "`, so it drops
   straight into a `start` block.
