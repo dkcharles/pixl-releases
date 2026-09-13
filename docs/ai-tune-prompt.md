@@ -24,6 +24,10 @@ Pixl's tune notation, ready to paste into my code. Follow these rules exactly.
   above, spaces between them, and the double quotes around the whole tune.
 - Keep the tune to **16 to 64 tokens** (2 to 8 seconds). A short, recognisable phrase is better
   than the whole song.
+- **Do not forget the three symbols.** `#` makes a note sharp, `.` is a beat of silence, and `-`
+  makes the previous note last longer. A tune written as bare letters with no `-` will sound
+  rushed, with every note the same short length; a tune without `.` has no gaps between phrases.
+  Write out the rhythm with `-` and `.` so it sounds like the real thing.
 
 **The answer must contain only this**, with no explanation before or after:
 
@@ -39,6 +43,13 @@ Pixl's tune notation, ready to paste into my code. Follow these rules exactly.
 ```
 twinkle = tune "C - C - G - G - A - A - G - - - F - F - E - E - D - D - C - - -"
 // play twinkle   or   play twinkle forever
+```
+
+**Example answer using all three symbols** (a two-tone alarm: sharps, rests and held notes):
+
+```
+alarm = tune "C5 - - . F#5 - - . C5 - - . F#5 - - . C#5 - - - - - - ."
+// play alarm   or   play alarm 3 times
 ```
 
 **Please choose a tune that is traditional or out of copyright** (nursery rhymes, folk songs,
