@@ -302,6 +302,10 @@ hush                         // silence both channels
   `play` is a one-off **effect** on top of it. One of each at a time — a new play replaces the
   old one on its channel. (The word `times` is optional, like `every`'s `seconds`.)
 - Use `when` for key-press sounds. Under `if`, the tune restarts every frame the key is held.
+- Never put a `play` or `sound` straight inside `update` or `draw`: those blocks run every
+  frame, so the music would restart before its second note and an effect would turn into a
+  buzz. Studio stops you with a card. Start music in `start` (it keeps looping by itself), and
+  put effects inside `when` or `every`.
 - Music for a while is a pattern, not a command: `play song forever` plus `every 30 seconds hush end`.
 
 ### Ready-made tunes
