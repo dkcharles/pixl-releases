@@ -14,6 +14,8 @@ builds are unsigned while Pixl is in testing.
 
 ## Learn Pixl
 
+- **[Video tutorials](https://dkcharles.github.io/pixl-releases/tutorials/)** — seven short narrated
+  videos, from your first game to lists and taking your work home ([list of videos](docs/tutorials.md)).
 - **[Pixl Studio guide](docs/studio-guide.md)** — a tour of the app: the editor, running games,
   the sprite/animation painter, the tune editor, lessons, and sharing your games.
 - **[Pixl language reference](docs/pixl-syntax-reference.md)** — the whole language on one page.
