@@ -4,6 +4,9 @@ Pixl Studio is where you write and run Pixl games. This is a quick tour of every
 window. For the language itself, see the [Pixl language reference](pixl-syntax-reference.md) —
 the same reference is built into the app behind the **📖 Reference** button (F1).
 
+Prefer to watch first? The **[video tutorials](https://dkcharles.github.io/pixl-releases/tutorials/)**
+cover the same ground in seven short clips.
+
 ## First run
 
 Studio creates a `PixlStudio` folder in your Documents with all the example games inside.
