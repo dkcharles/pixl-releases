@@ -19,6 +19,8 @@ builds are unsigned while Pixl is in testing.
 - **[Pixl Studio guide](docs/studio-guide.md)** — a tour of the app: the editor, running games,
   the sprite/animation painter, the tune editor, lessons, and sharing your games.
 - **[Pixl language reference](docs/pixl-syntax-reference.md)** — the whole language on one page.
+- **Prompts for an AI helper** — copy one into ChatGPT, Claude or Copilot and paste the answer into
+  your game: [make a tune or sound](docs/ai-tune-prompt.md) · [make a sprite or animation](docs/ai-sprite-prompt.md).
 - **[Pixl in VS Code](docs/vscode.md)** — install the extension and write Pixl in VS Code, with
   several files open at once.
 
