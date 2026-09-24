@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pixl Studio tutorials</title>
+<meta name="description" content="Seven short narrated videos that walk through Pixl Studio, the browser-based app for learning game coding.">
+<link rel="icon" href="../studio/favicon.svg" type="image/svg+xml">
+<style>
+  :root {
+    color-scheme: dark;
+    --surface: #1b1d21; --chrome: #212429; --on-surface: #d6d8de; --muted: #9aa3b2;
+    --accent: #4f8cff; --hairline: #2e3238; --pixel: #f1d21a;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--surface); color: var(--on-surface); font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  header { display: flex; align-items: center; gap: 12px; padding: 12px 20px; background: var(--chrome); border-bottom: 1px solid var(--hairline); }
+  header img { width: 28px; height: 28px; }
+  header h1 { font-size: 16px; margin: 0; font-weight: 600; }
+  header nav { margin-left: auto; display: flex; gap: 14px; font-size: 14px; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover, a:focus-visible { text-decoration: underline; }
+  main { max-width: 1040px; margin: 0 auto; padding: 28px 20px 64px; }
+  .intro { max-width: 68ch; margin: 0 0 8px; }
+  .intro h2 { font-size: 26px; margin: 0 0 8px; letter-spacing: -0.01em; }
+  .intro p { margin: 0 0 6px; color: var(--muted); }
+  .playlist { display: inline-block; margin: 10px 0 26px; padding: 7px 14px; border: 1px solid var(--hairline); border-radius: 8px; background: var(--chrome); color: var(--on-surface); }
+  .playlist:hover { border-color: var(--accent); text-decoration: none; }
+  ol.videos { list-style: none; margin: 0; padding: 0; display: grid; gap: 28px; }
+  ol.videos li { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: 20px; align-items: start; padding-top: 22px; border-top: 1px solid var(--hairline); }
+  ol.videos li:first-child { border-top: 0; padding-top: 0; }
+  .frame { position: relative; aspect-ratio: 16 / 9; background: #000; border: 1px solid var(--hairline); border-radius: 8px; overflow: hidden; }
+  .frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  .about .n { display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: .06em; color: var(--pixel); margin-bottom: 4px; }
+  .about h3 { font-size: 18px; margin: 0 0 6px; }
+  .about p { margin: 0 0 8px; color: var(--muted); }
+  .about .len { font-size: 13px; color: var(--muted); }
+  .try { margin-top: 36px; padding: 16px 18px; border: 1px solid var(--hairline); border-radius: 8px; background: var(--chrome); }
+  .try p { margin: 0 0 6px; }
+  @media (max-width: 720px) { ol.videos li { grid-template-columns: 1fr; } header nav { display: none; } }
+</style>
+</head>
+<body>
+<header>
+  <img src="../studio/favicon.svg" alt="">
+  <h1>Pixl Studio tutorials</h1>
+  <nav>
+    <a href="../studio/">Open the Studio</a>
+    <a href="https://github.com/dkcharles/pixl-releases#learn-pixl">Guides</a>
+  </nav>
+</header>
+<main>
+  <section class="intro">
+    <h2>Learn Pixl Studio in seven short videos</h2>
+    <p>Each one is under two and a half minutes and shows one thing: your first game, painting a player, animation, sound, the built-in lessons, lists, and taking your work home. Watch them in order, or jump to the one you need.</p>
+    <a class="playlist" href="https://www.youtube.com/playlist?list=PLWw8Drk2vUPw">▶ Watch the whole playlist on YouTube</a>
+  </section>
+
+  <ol class="videos">
+    <li>
+      <div class="frame"><iframe src="https://www.youtube-nocookie.com/embed/gAuJxbx7Lbw?list=PLWw8Drk2vUPw" title="Pixl Studio 1 - Your first Pixl game" loading="lazy" allow="accelerometer; encrypted-media; picture-in-picture" allowfullscreen></iframe></div>
+      <div class="about"><span class="n">1</span><h3>Your first Pixl game</h3><p>Start blank, type a small program, fix a bug card, run it, save it and share a link.</p><span class="len">1:33</span></div>
+    </li>
+    <li>
+      <div class="frame"><iframe src="https://www.youtube-nocookie.com/embed/FyNs8uktf9U?list=PLWw8Drk2vUPw" title="Pixl Studio 2 - Paint your player" loading="lazy" allow="accelerometer; encrypted-media; picture-in-picture" allowfullscreen></iframe></div>
+      <div class="about"><span class="n">2</span><h3>Paint your player</h3><p>Open the Sprite editor, paint a pixel-art rocket, name it, insert it into your code, and edit it in place later.</p><span class="len">1:59</span></div>
+    </li>
+    <li>
+      <div class="frame"><iframe src="https://www.youtube-nocookie.com/embed/lpObhPUYqZg?list=PLWw8Drk2vUPw" title="Pixl Studio 3 - Make it walk" loading="lazy" allow="accelerometer; encrypted-media; picture-in-picture" allowfullscreen></iframe></div>
+      <div class="about"><span class="n">3</span><h3>Make it walk</h3><p>Paint two poses as frames, insert the walk list and its counter, add an every block and a draw line, and watch it walk.</p><span class="len">2:22</span></div>
+    </li>
+    <li>
+      <div class="frame"><iframe src="https://www.youtube-nocookie.com/embed/gj1TYc-bu10?list=PLWw8Drk2vUPw" title="Pixl Studio 4 - Add some sound" loading="lazy" allow="accelerometer; encrypted-media; picture-in-picture" allowfullscreen></iframe></div>
+      <div class="about"><span class="n">4</span><h3>Add some sound</h3><p>Write a jingle on the Tune editor's piano roll, play it with a when block on the space key, and meet the ready-made sounds.</p><span class="len">2:12</span></div>
+    </li>
+    <li>
+      <div class="frame"><iframe src="https://www.youtube-nocookie.com/embed/GPY_HWaoYRM?list=PLWw8Drk2vUPw" title="Pixl Studio 5 - Learn, one step at a time" loading="lazy" allow="accelerometer; encrypted-media; picture-in-picture" allowfullscreen></iframe></div>
+      <div class="about"><span class="n">5</span><h3>Learn, one step at a time</h3><p>Guided lessons beside your code, Check it to test your answer, hints when you're stuck, the full lesson path, and the Reference tab.</p><span class="len">1:51</span></div>
+    </li>
+    <li>
+      <div class="frame"><iframe src="https://www.youtube-nocookie.com/embed/M5iVydA-g98?list=PLWw8Drk2vUPw" title="Pixl Studio 6 - Many things" loading="lazy" allow="accelerometer; encrypted-media; picture-in-picture" allowfullscreen></iframe></div>
+      <div class="about"><span class="n">6</span><h3>Many things</h3><p>The code blocks palette, a list of six rocks, for each loops, and rock touches player to catch them and score.</p><span class="len">1:36</span></div>
+    </li>
+    <li>
+      <div class="frame"><iframe src="https://www.youtube-nocookie.com/embed/yGBU5f-qOsw?list=PLWw8Drk2vUPw" title="Pixl Studio 7 - Take it home" loading="lazy" allow="accelerometer; encrypted-media; picture-in-picture" allowfullscreen></iframe></div>
+      <div class="about"><span class="n">7</span><h3>Take it home</h3><p>My games, Save progress and Load progress in the More menu, and sharing a game as a link.</p><span class="len">1:30</span></div>
+    </li>
+  </ol>
+
+  <section class="try">
+    <p><strong>Ready to try it?</strong> <a href="../studio/">Open Pixl Studio</a> in your browser, nothing to install. The <strong>Learn</strong> button inside it has the step-by-step lessons the videos mention.</p>
+    <p>Prefer the Windows app? <a href="https://github.com/dkcharles/pixl-releases/releases/latest">Download Pixl Studio</a>.</p>
+  </section>
+</main>
+</body>
+</html>
